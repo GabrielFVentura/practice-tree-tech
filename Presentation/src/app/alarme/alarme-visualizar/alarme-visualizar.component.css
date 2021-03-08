@@ -1,0 +1,9 @@
+img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+SVG, svg .card-body-id{
+  margin-left:auto; margin-right:auto; display:block;
+}

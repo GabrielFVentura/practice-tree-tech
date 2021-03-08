@@ -1,0 +1,20 @@
+.btn-cadastrar{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/*.form-control.ng-invalid, p-dropdown.ng-invalid{*/
+/*  border: red solid 1px;*/
+/*}*/
+
+input.ng-invalid.ng-touched, p-dropdown.ng-invalid.ng-touched{
+  border: 3px solid red;
+}
+
+/*input.ng-valid, .p-dropdown-clearable{*/
+/*  border:3px solid green;*/
+/*}*/

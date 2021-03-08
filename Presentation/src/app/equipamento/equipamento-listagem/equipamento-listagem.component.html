@@ -1,0 +1,108 @@
+<div class="card shadow mb-3" style="margin-top: 32px;">
+  <h3 class="card-header text-black">Lista de Equipamentos</h3>
+  <div class="card-body">
+    <form [formGroup]="formulario" novalidate (ngSubmit)="pesquisar()">
+
+      <div class="form-group col-12">
+
+        <div class="form-row">
+          <div class="form-group col-4">
+            <label for="id-nome-equipamento">Nome do Equipamento</label>
+            <input
+              type="search"
+              formControlName="nomeEquipamento"
+              class="form-control"
+              placeholder="Digite..."
+              id="id-nome-equipamento"
+            />
+          </div>
+
+          <div class="form-group col-4">
+            <label for="id-numero-serie">Número de Série</label>
+            <input
+              type="search"
+              formControlName="numeroSerie"
+              class="form-control"
+              placeholder="00000-000-0-0000/0000"
+              id="id-numero-serie"
+              mask="00000-000-0-0000/0000"
+            />
+          </div>
+
+          <div class="form-group col-4">
+            <label>Tipo do Equipamento: </label>
+            <p-dropdown [showClear]="true" [options]="tiposEquipamento" placeholder="Selecione..."
+                        [style]="{'width':'100%'}" formControlName="tipoEquipamento"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12">
+          <button type="button" (click)="cadastrarEquipamento()" class="btn-lg btn-success float-right margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faPlusCircle"></fa-icon>
+            Cadastrar
+          </button>
+          <button type="button" (click)="pesquisar()" class="btn-lg btn-primary float-right margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faSearch"></fa-icon>
+            Pesquisar
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="table table-striped" style="margin-top:1rem">
+      <p-table [style]="{'font-size':'12px'}" #dt id="table-alarmes" [value]="equipamentos" [paginator]="true" [rows]="10" [scrollable]="false"
+               [resizableColumns]="false" *ngIf="equipamentos != null">
+        <ng-template pTemplate="header">
+          <tr>
+            <th  pSortableColumn="nomeEquipamento" style="width: 18%; text-align: center;">Nome do Equipamento<p-sortIcon field="nomeEquipamento"></p-sortIcon></th>
+            <th  pSortableColumn="numeroSerie" style="width: 20%; text-align: center;">Número de Série <p-sortIcon field="numeroSerie"></p-sortIcon></th>
+            <th  pSortableColumn="tipoEquipamentoDescricao" style="width: 13%; text-align: center;">Tipo Equipamento <p-sortIcon field="tipoEquipamentoDescricao"></p-sortIcon></th>
+            <th  pSortableColumn="dataCadastro" style="width: 20%; text-align: center;">Data de Cadastro <p-sortIcon field="dataCadastro"></p-sortIcon></th>
+            <th  pSortableColumn="dataAlteracaoToString" style="width: 20%; text-align: center;">Data de Alteração <p-sortIcon field="dataAlteracaoToString"></p-sortIcon></th>
+            <th  pSortableColumn="descricao" style="width: 20%; text-align: center;">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-equipamento>
+
+          <tr>
+            <td style="text-align: center;"> {{equipamento?.nomeEquipamento}} </td>
+            <td style="text-align: center;"> {{equipamento?.numeroSerie | mask:'00000-000-0-0000/0000'}} </td>
+            <td style="text-align: center;"> {{equipamento?.tipoEquipamentoDescricao}} </td>
+            <td style="text-align: center;"> {{equipamento?.dataCadastro | date: 'dd/MM/yyyy'}} </td>
+            <td style="text-align: center;"> {{equipamento?.dataAlteracaoToString }} </td>
+            <td style="text-align: center;">
+
+              <button (click)="atualizar(equipamento)" data-toggle="tooltip" data-placement="bottom"
+                      title="Atualizar informações do Equipamento" type="button" style="margin:2px"
+                      class='btn btn-primary btn-sm'>
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+
+              <button (click)="deletar(equipamento)" data-toggle="tooltip" data-placement="bottom"
+                      title="Atualizar informações do Equipamento" type="button" style="margin:2px"
+                      class='btn btn-danger btn-sm'>
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-analise>
+          <tr>
+            <td [attr.colspan]="7" style="text-align: center;">
+              Nenhum registro encontrado.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+
+

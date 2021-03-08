@@ -1,0 +1,12 @@
+.btn-cadastrar{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+input.ng-invalid.ng-touched, p-dropdown.ng-invalid.ng-touched{
+  border: 3px solid red;
+}

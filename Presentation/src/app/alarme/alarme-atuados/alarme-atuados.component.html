@@ -1,0 +1,198 @@
+<div class="card shadow mb-3" style="margin-top: 32px;">
+  <h3 class="card-header text-black">Lista de Alarmes Atuados</h3>
+  <div class="card-body">
+    <form [formGroup]="formulario" novalidate (ngSubmit)="pesquisar()">
+
+      <div class="p-field p-col-12 p-md-4">
+
+        <div class="form-group col-12">
+
+          <div class="form-row">
+
+            <div class="form-group col-4">
+              <label for="i-descricao">Descrição do Alarme</label>
+              <input
+                type="search"
+                formControlName="descricao"
+                class="form-control"
+                placeholder="Descricao do Alarme"
+                id="i-descricao"
+              />
+            </div>
+
+            <div class="form-group col-4">
+
+              <label>Classificação do Alarme: </label>
+              <p-dropdown [showClear]="true" [options]="tiposAlarme" placeholder="Selecione..."
+                          [style]="{'width':'100%'}" formControlName="tipoAlarme"></p-dropdown>
+            </div>
+
+            <div class="form-group col-4">
+              <label>Tipo do Equipamento: </label>
+              <p-dropdown [showClear]="true" [options]="tiposEquipamento" placeholder="Selecione..."
+                          [style]="{'width':'100%'}" formControlName="tipoEquipamento"></p-dropdown>
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-4">
+              <label for="i-numeroSerie">Número de Série</label>
+              <input
+                type="search"
+                formControlName="numeroSerie"
+                class="form-control"
+                mask="00000-000-0-0000/0000"
+                placeholder="00000-000-0-0000/0000"
+                id="i-numeroSerie"
+              />
+            </div>
+
+            <div class="form-group col-4">
+              <label>Equipamento: </label>
+              <p-dropdown [showClear]="true" [options]="equipamentos" placeholder="Selecione..." optionLabel="nomeEquipamento"
+                          [style]="{'width':'100%'}" formControlName="equipamento"></p-dropdown>
+            </div>
+          </div>
+
+
+          <!--            <div class="col-2">-->
+          <!--              <div class="p-fluid p-grid p-formgrid">-->
+          <!--                <label>Data do Evento</label>-->
+          <!--                <p-calendar showButtonBar="true" formControlName="dataEvento" inputId="buttonbar"></p-calendar>-->
+          <!--              </div>-->
+          <!--            </div>-->
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12">
+          <div class="p-field p-col-12 p-md-4">
+            <div class="col-3">
+            <label>Número de Alarmes Atuados com maiores ocorrência: </label>
+            </div>
+            <div class="form-group col-3">
+            <p-dropdown [showClear]="true" [options]="numeroAlarmesAtuados" placeholder="0"
+                        [style]="{'width':'100%'}" formControlName="numeroAlarmeAtuado"></p-dropdown>
+          </div>
+
+          <button [disabled]="this.formulario.value.numeroAlarmeAtuado === null" (click)="buscarOcorrencias()" type="button" class="btn-lg {{this.formulario.value.numeroAlarmeAtuado === null ? 'btn-secondary btn-voltar float-left' : 'btn-warning btn-voltar float-left'}} ">
+            <fa-icon [icon]="faListOl"></fa-icon>
+            Buscar Maiores Ocorrências
+          </button>
+
+          <button (click)="voltar()" type="button" class="btn-lg btn-danger btn-voltar float-right"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+            Voltar
+          </button>
+
+          <button type="button" (click)="pesquisar()" class="btn-lg btn-primary float-right margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faSearch"></fa-icon>
+            Pesquisar
+          </button>
+
+
+        </div>
+      </div>
+      </div>
+    </form>
+
+    <div class="table table-striped" style="margin-top:1rem">
+      <p-table [style]="{'font-size':'12px'}" #dt id="table-alarmes" [value]="alarmes" [paginator]="true" [rows]="10"
+               [scrollable]="false"
+               [resizableColumns]="false" *ngIf="alarmes != null && !buscandoOcorrencias">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="descricao" style="width: 18%; text-align: center;">Descrição do Alarme
+              <p-sortIcon field="descricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipoAlarmeDescricao" style="width: 20%; text-align: center;">Classificação do Alarme
+              <p-sortIcon field="tipoAlarmeDescricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nomeEquipamento" style="width: 20%; text-align: center;">Equipamento
+              Relacionado
+              <p-sortIcon field="nomeEquipamento"></p-sortIcon>
+            </th>
+            <th pSortableColumn="numeroSerie" style="width: 20%; text-align: center;">Número de Série do
+              Equipamento
+              <p-sortIcon field="numeroSerie"></p-sortIcon>
+            </th>
+            <th pSortableColumn="dataCadastro" style="width: 20%; text-align: center;">Data da Ocorrência
+              <p-sortIcon field="dataCadastro"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipoEquipamentoDescricao" style="width: 20%; text-align: center;">Tipo do Equipamento
+              <p-sortIcon field="tipoEquipamentoDescricao"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-alarmeAtuado>
+
+          <tr>
+
+            <td style="text-align: center;"> {{alarmeAtuado?.descricao}} </td>
+            <td style="text-align: center;"> {{alarmeAtuado?.tipoAlarmeDescricao}} </td>
+            <td style="text-align: center;"> {{alarmeAtuado?.nomeEquipamento}} </td>
+            <td style="text-align: center;"> {{alarmeAtuado?.numeroSerie | numeroSerie}} </td>
+            <td style="text-align: center;"> {{alarmeAtuado?.dataCadastro | date: 'dd/MM/yyyy h:mm:ss'}} </td>
+            <td style="text-align: center;"> {{alarmeAtuado?.tipoEquipamentoDescricao}} </td>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-analise>
+          <tr>
+            <td [attr.colspan]="7" style="text-align: center;">
+              Nenhum registro encontrado.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-table [style]="{'font-size':'12px'}" #dt id="table-ocorrencias" [value]="ocorrencias" [paginator]="true" [rows]="10"
+               [scrollable]="false"
+               [resizableColumns]="false" *ngIf="ocorrencias != null && buscandoOcorrencias">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="alarmeDTO.descricao" style="width: 18%; text-align: center;">Número de Ocorrências
+              <p-sortIcon field="alarmeDTO.descricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="alarmeDTO.descricao" style="width: 20%; text-align: center;">Descrição do Alarme
+              <p-sortIcon field="alarmeDTO.descricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="alarmeDTO.tipoAlarmeDescricao" style="width: 20%; text-align: center;">Classificação do Alarme
+              <p-sortIcon field="alarmeDTO.tipoAlarmeDescricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="alarmeDTO.dataCadastro" style="width: 20%; text-align: center;">Data de Cadastro do Alarme
+              <p-sortIcon field="alarmeDTO.dataCadastro"></p-sortIcon>
+            </th>
+            <th pSortableColumn="alarmeDTO.ativo" style="width: 20%; text-align: center;">Status Alarme
+              <p-sortIcon field="alarmeDTO.ativo"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ocorrencia>
+
+          <tr>
+
+            <td style="text-align: center;"> {{ocorrencia?.ocorrencias}} </td>
+            <td style="text-align: center;"> {{ocorrencia?.alarmeDTO?.descricao}} </td>
+            <td style="text-align: center;"> {{ocorrencia?.alarmeDTO?.tipoAlarmeDescricao}} </td>
+            <td style="text-align: center;"> {{ocorrencia?.alarmeDTO?.dataCadastro | date: 'dd/MM/yyyy h:mm:ss'}} </td>
+            <td style="text-align: center;"> {{ocorrencia?.alarmeDTO?.ativo ? 'Ativo' : 'Inativo'}} </td>
+
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-analise>
+          <tr>
+            <td [attr.colspan]="7" style="text-align: center;">
+              Nenhum registro encontrado.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

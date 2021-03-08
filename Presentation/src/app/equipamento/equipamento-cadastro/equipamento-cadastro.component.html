@@ -1,0 +1,58 @@
+<div class="card shadow mb-3" style="margin-top: 32px;">
+  <h3 class="card-header text-black">{{atualizandoEquipamento ? 'Atualizar Equipamento' : 'Cadastrar Equipamento'}}</h3>
+  <div class="card-body">
+    <form id="form" [formGroup]="formulario" novalidate (ngSubmit)="cadastrarOuAtualizarEquipamento()">
+
+      <div class="form-group col-12">
+
+        <div class="form-row">
+          <div class="form-group col-4">
+            <label for="id-nome-equipamento">Nome do Equipamento</label>
+            <input
+              type="search"
+              formControlName="nomeEquipamento"
+              class="form-control"
+              placeholder="Digite..."
+              id="id-nome-equipamento"
+            />
+          </div>
+
+          <div class="form-group col-4">
+            <label for="id-numero-serie">Número de Série</label>
+            <input
+              type="search"
+              formControlName="numeroSerie"
+              class="form-control"
+              placeholder="00000-000-0-0000/0000"
+              id="id-numero-serie"
+              mask="00000-000-0-0000/0000"
+            />
+          </div>
+
+          <div class="form-group col-4">
+            <label>Tipo do Equipamento: </label>
+            <p-dropdown [showClear]="true" [options]="tiposEquipamento" placeholder="Selecione..."
+                        [style]="{'width':'100%'}" formControlName="tipoEquipamento"></p-dropdown>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="col-12">
+          <button type="submit" class="btn-lg btn-success btn-cadastrar float-right"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faPlusCircle"></fa-icon>
+            Salvar
+          </button>
+          <button type="button" (click)="voltar()" class="btn-lg btn-danger btn-voltar float-right"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+            Voltar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

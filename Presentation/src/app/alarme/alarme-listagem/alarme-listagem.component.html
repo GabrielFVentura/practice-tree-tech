@@ -1,0 +1,130 @@
+<div class="card shadow mb-3" style="margin-top: 32px;">
+  <h3 class="card-header text-black">Lista de Alarmes</h3>
+  <div class="card-body">
+    <form [formGroup]="formulario" novalidate (ngSubmit)="pesquisar()">
+
+      <div class="form-group col-12">
+
+        <div class="form-row">
+
+          <div class="form-group col-4">
+            <label for="i-analise">Pesquisar</label>
+            <input
+              type="search"
+              formControlName="descricao"
+              class="form-control"
+              placeholder="Descricao do Alarme"
+              id="i-analise"
+            />
+          </div>
+
+          <div class="form-group col-4">
+            <label>Equipamento: </label>
+            <p-dropdown [showClear]="true" [options]="equipamentos" placeholder="Selecione..." optionLabel="nomeEquipamento"
+                        [style]="{'width':'100%'}" formControlName="equipamento"></p-dropdown>
+          </div>
+
+          <div class="form-group col-2">
+
+            <label>Classificação do Alarme: </label>
+            <p-dropdown [showClear]="true" [options]="tiposAlarme" placeholder="Selecione..."
+                        [style]="{'width':'100%'}" formControlName="tipoAlarme"></p-dropdown>
+          </div>
+
+          <div class="form-group col-2">
+
+            <label>Status do Alarme: </label>
+            <p-dropdown [showClear]="true" [options]="statusAlarme" placeholder="Selecione..."
+                        [style]="{'width':'100%'}" formControlName="statusAlarme"></p-dropdown>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-12">
+
+          <button type="button" (click)="cadastrarAlarme()" class="btn-lg btn-success float-right margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faPlusCircle"></fa-icon>
+            Cadastrar
+          </button>
+
+          <button type="button" (click)="pesquisar()" class="btn-lg btn-primary float-right margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faSearch"></fa-icon>
+            Pesquisar
+          </button>
+
+          <button type="button" (click)="alarmesAtuados()" class="btn-lg btn-warning float-left margin-top"
+                  style="margin-right: 8px;">
+            <fa-icon [icon]="faBell"></fa-icon>
+            Alarmes Atuados
+          </button>
+
+        </div>
+      </div>
+    </form>
+
+    <div class="table table-striped" style="margin-top:1rem">
+      <p-table [style]="{'font-size':'12px'}" #dt id="table-alarmes" [value]="alarmes" [paginator]="true" [rows]="10" [scrollable]="false"
+               [resizableColumns]="false" *ngIf="alarmes != null">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="descricao" style="width: 18%; text-align: center;">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
+            <th pSortableColumn="tipoAlarmeDescricao" style="width: 20%; text-align: center;">Classificação <p-sortIcon field="tipoAlarmeDescricao"></p-sortIcon></th>
+            <th pSortableColumn="ativo" style="width: 13%; text-align: center;">Ativo <p-sortIcon field="ativo"></p-sortIcon></th>
+            <th pSortableColumn="equipamentoDTO.nomeEquipamento" style="width: 20%; text-align: center;">Equipamento Relacionado <p-sortIcon field="equipamentoDTO.nomeEquipamento"></p-sortIcon></th>
+            <th pSortableColumn="dataCadastro" style="width: 20%; text-align: center;">Data de Cadastro <p-sortIcon field="dataCadastro"></p-sortIcon></th>
+            <th pSortableColumn="dataAlteracaoToString" style="width: 20%; text-align: center;">Data de Alteração <p-sortIcon field="dataAlteracaoToString"></p-sortIcon></th>
+            <th style="width: 25%; text-align: center;">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-alarme>
+
+          <tr>
+            <td style="text-align: center;"> {{alarme?.descricao}} </td>
+            <td style="text-align: center;"> {{alarme?.tipoAlarmeDescricao}} </td>
+            <td style="text-align: center;"> {{alarme?.ativo ? 'Sim' : 'Não'}} </td>
+            <td style="text-align: center;"> {{alarme?.equipamentoDTO.nomeEquipamento}} </td>
+            <td style="text-align: center;"> {{alarme?.dataCadastro | date: 'dd/MM/yyyy'}} </td>
+            <td style="text-align: center;"> {{alarme?.dataAlteracaoToString}} </td>
+
+            <td style="text-align: center;">
+
+              <button (click)="ativarOuDesativarAlarme(alarme)" data-toggle="tooltip" data-placement="bottom"
+                      [title]="alarme.ativo ? 'Desativar Alarme' : 'Ativar Alarme'" type="button" style="margin:2px" [className]="alarme.ativo ? 'btn btn-warning btn-sm' : 'btn btn-secondary btn-sm'">
+                <fa-icon *ngIf="!alarme.ativo" [icon]="faToggleOn"></fa-icon>
+                <fa-icon *ngIf="alarme.ativo" [icon]="faToggleOff"></fa-icon>
+              </button>
+
+              <button *ngIf="!alarme.ativo" (click)="atualizar(alarme)" data-toggle="tooltip" data-placement="bottom"
+                      title="Atualizar informações do Alarme" type="button" style="margin:2px" class='btn btn-primary btn-sm'>
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </button>
+
+              <button *ngIf="!alarme.ativo" (click)="deletar(alarme)" data-toggle="tooltip" data-placement="bottom"
+                      title="Deletar Alarme" type="button" style="margin:2px" class='btn btn-danger btn-sm'>
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+
+              <button (click)="visualizar(alarme)" data-toggle="tooltip" data-placement="bottom"
+                      title="Visualizar Alarme" type="button" style="margin:2px" class='btn btn-success btn-sm'>
+                <fa-icon [icon]="faEye"></fa-icon>
+              </button>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage" let-analise>
+          <tr>
+            <td [attr.colspan]="7" style="text-align: center;">
+              Nenhum registro encontrado.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+
+
