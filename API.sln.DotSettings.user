@@ -9,8 +9,5 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=be44cf16_002D5aac_002D4964_002D9811_002Da711c15ae77b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CRUD Alarme" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;And&gt;&#xD;
-    &lt;Project Location="C:\treetech\Infrastructure.Test" Presentation="&amp;lt;Infrastructure.Test&amp;gt;" /&gt;&#xD;
-    &lt;Namespace&gt;Infrastructure.Test.Tests&lt;/Namespace&gt;&#xD;
-  &lt;/And&gt;&#xD;
+  &lt;Project Location="C:\TreeTech_2\practice-tree-tech\Tests" Presentation="&amp;lt;Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
