@@ -1,5 +1,5 @@
-<div class="card shadow mb-3" style="margin-top: 32px;">
-  <h3 class="card-header text-black">Lista de Alarmes</h3>
+<div class="card mb-3" style="margin-top: 32px;">
+  <h3 class="card-header text-black btn-header">Lista de Alarmes</h3>
   <div class="card-body">
     <form [formGroup]="formulario" novalidate (ngSubmit)="pesquisar()">
 
@@ -26,7 +26,7 @@
 
           <div class="form-group col-2">
 
-            <label>Classificação do Alarme: </label>
+            <label>Classificação: </label>
             <p-dropdown [showClear]="true" [options]="tiposAlarme" placeholder="Selecione..."
                         [style]="{'width':'100%'}" formControlName="tipoAlarme"></p-dropdown>
           </div>

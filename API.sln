@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "CrossCutting\CrossCutting.csproj", "{57436577-1C4D-4A9B-91EF-94A2FB0E5AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Test", "Infrastructure.Test\Infrastructure.Test.csproj", "{BB864CEE-5E59-4AF1-8ADD-F102BF88C33E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BB864CEE-5E59-4AF1-8ADD-F102BF88C33E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,5 +100,7 @@ Global
 		{BB864CEE-5E59-4AF1-8ADD-F102BF88C33E}.Release|x64.Build.0 = Release|Any CPU
 		{BB864CEE-5E59-4AF1-8ADD-F102BF88C33E}.Release|x86.ActiveCfg = Release|Any CPU
 		{BB864CEE-5E59-4AF1-8ADD-F102BF88C33E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
