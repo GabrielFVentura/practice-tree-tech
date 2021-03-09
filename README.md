@@ -11,3 +11,14 @@ WebApi
 Test
 
    Testing layer with xUnit and Fluent Assertions 
+
+Running Backend
+
+    dotnet restore 
+
+Running Frontned 
+
+    cd Presentation
+    npm install
+    ng serve
+    
