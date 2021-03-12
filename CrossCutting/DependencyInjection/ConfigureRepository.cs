@@ -10,6 +10,9 @@ namespace CrossCutting.DependencyInjection
 {
     public class ConfigureRepository
     {
+        //Add your SQLServer connectionString to the this parameter
+        public static string ConnectionString => "";
+        
         public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<TreeTechContext, TreeTechContext>();
@@ -18,8 +21,9 @@ namespace CrossCutting.DependencyInjection
             serviceCollection.AddScoped<IAlarmeRepository, AlarmeRepository>();
             serviceCollection.AddScoped<IAlarmeAtuadoRepository, AlarmeAtuadoRepository>();
             
+            
             serviceCollection.AddDbContext<TreeTechContext>(opt =>
-                opt.UseSqlServer("Server=localhost;Database=TreeTech;User ID=sa;Password=squadra@sqlserver"));
+                opt.UseSqlServer(ConnectionString));
         }
     }
 }
