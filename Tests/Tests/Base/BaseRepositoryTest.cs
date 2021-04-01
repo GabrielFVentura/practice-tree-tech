@@ -20,6 +20,8 @@ namespace Infrastructure.Test.Tests.Base
             public DB_Teste()
             {
                 var serviceCollection = new ServiceCollection();
+                
+                //Add your SQLServer connectionString to the this parameter
                 serviceCollection.AddDbContext<TreeTechContext>(o =>
                     o.UseSqlServer($"Server=localhost;Database={dataBaseName};User ID=sa;Password=squadra@sqlserver"),
                     ServiceLifetime.Transient);

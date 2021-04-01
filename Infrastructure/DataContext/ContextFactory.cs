@@ -16,8 +16,7 @@ namespace Infrastructure.DataContext
             ConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
 
             var optionsBuilder = new DbContextOptionsBuilder<TreeTechContext>();
-            optionsBuilder.UseSqlServer(ConnectionString ??
-                                        "Server=localhost;Database=TreeTech;User ID=sa;Password=squadra@sqlserver")
+            optionsBuilder.UseSqlServer(ConnectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
 

@@ -11,7 +11,8 @@ namespace CrossCutting.DependencyInjection
     public class ConfigureRepository
     {
         //Add your SQLServer connectionString to the this parameter
-        public static string ConnectionString => "";
+        public static string ConnectionString =>
+            "Server=localhost;Database=TreeTech;User ID=sa;Password=squadra@sqlserver";
         
         public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
         {
